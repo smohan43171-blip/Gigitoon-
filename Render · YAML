@@ -1,0 +1,32 @@
+# Single repo — deploys BOTH backend and frontend on Render
+services:
+
+  # ── Backend (Flask API) ──────────────────────────────────────────────────
+  - type: web
+    name: gifvault-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    disk:
+      name: uploads
+      mountPath: /opt/render/project/src/uploads
+      sizeGB: 1
+
+  # ── Frontend (React/Vite → Static Site) ─────────────────────────────────
+  - type: web
+    name: gifvault-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://gifvault-backend.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
