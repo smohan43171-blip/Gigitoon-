@@ -1,9 +1,9 @@
 import { Switch, Route } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from /Home ;
-import UploadPage from /Upload ;
-import ViewPage from /View";
-import AdminPage from /pages/Admin;
+import UploadPage from "./Upload";
+import ViewPage from "./View";
+import AdminPage from "./Admin";
 
 const qc = new QueryClient({
   defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false, staleTime: 30_000 } },
