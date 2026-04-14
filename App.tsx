@@ -1,5 +1,5 @@
 import { Switch, Route } from "wouter";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query  import Home from "./Home";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UploadPage from "./Upload";
 import ViewPage from "./View";
 import AdminPage from "./Admin";
