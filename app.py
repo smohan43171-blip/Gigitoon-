@@ -72,7 +72,13 @@ def init_db():
     """)
     conn.commit()
     conn.close()
+@app.route('/')
+def serve_index():
+    return app.send_static_file('index.html')
 
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
 
 def media_row_to_dict(row, tags):
     return {
