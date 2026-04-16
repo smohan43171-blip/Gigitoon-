@@ -326,7 +326,13 @@ def get_stats():
     conn.close()
     return jsonify({"total": total, "byCategory": by_cat, "pending": pending})
 
+@app.route('/')
+def serve_index():
+    return send_from_directory('dist', 'index.html')
 
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('dist', path)
 # ─── FILE SERVING ────────────────────────────────────────────────────────────
 
 @app.route("/uploads/<path:filename>")
